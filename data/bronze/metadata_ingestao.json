@@ -1,7 +1,7 @@
 {
   "incidents_master": {
     "arquivo_origem": "incidents_master.csv",
-    "caminho_completo": "c:\\Users\\dti-\\Desktop\\Projeto-ciencia-dados\\incidents_master.csv",
+    "caminho_completo": "C:\\Users\\vitho\\Projeto-ciencia-dados\\incidents_master.csv",
     "quantidade_linhas": 850,
     "quantidade_colunas": 32,
     "colunas": [
@@ -39,45 +39,45 @@
       "updated_at"
     ],
     "tipos": {
-      "incident_id": "str",
-      "company_name": "str",
+      "incident_id": "object",
+      "company_name": "object",
       "company_revenue_usd": "float64",
-      "country_hq": "str",
-      "industry_primary": "str",
-      "industry_secondary": "str",
+      "country_hq": "object",
+      "industry_primary": "object",
+      "industry_secondary": "object",
       "employee_count": "int64",
       "is_public_company": "bool",
-      "stock_ticker": "str",
-      "incident_date": "datetime64[us]",
+      "stock_ticker": "object",
+      "incident_date": "datetime64[ns]",
       "incident_date_estimated": "bool",
-      "discovery_date": "datetime64[us]",
-      "disclosure_date": "datetime64[us]",
-      "attack_vector_primary": "str",
-      "attack_vector_secondary": "str",
-      "attack_chain": "str",
-      "attributed_group": "str",
-      "attribution_confidence": "str",
+      "discovery_date": "datetime64[ns]",
+      "disclosure_date": "datetime64[ns]",
+      "attack_vector_primary": "object",
+      "attack_vector_secondary": "object",
+      "attack_chain": "object",
+      "attributed_group": "object",
+      "attribution_confidence": "object",
       "data_compromised_records": "float64",
-      "data_type": "str",
-      "systems_affected": "str",
+      "data_type": "object",
+      "systems_affected": "object",
       "downtime_hours": "float64",
-      "data_source_primary": "str",
-      "data_source_secondary": "str",
-      "data_source_type": "str",
+      "data_source_primary": "object",
+      "data_source_secondary": "object",
+      "data_source_type": "object",
       "confidence_tier": "int64",
       "quality_score": "float64",
-      "quality_grade": "str",
-      "review_flag": "str",
-      "notes": "str",
-      "created_at": "datetime64[us, UTC]",
-      "updated_at": "datetime64[us, UTC]"
+      "quality_grade": "object",
+      "review_flag": "object",
+      "notes": "object",
+      "created_at": "datetime64[ns, UTC]",
+      "updated_at": "datetime64[ns, UTC]"
     },
     "hash_sha256": "8d1a50b11b18167d4a6576985c35cf75a541dae32320b0b41d0ac3dd9b50b030",
-    "data_hora_carga": "2026-03-19T13:18:46.594246+00:00"
+    "data_hora_carga": "2026-04-14T17:43:28.633120+00:00"
   },
   "financial_impact": {
     "arquivo_origem": "financial_impact.csv",
-    "caminho_completo": "c:\\Users\\dti-\\Desktop\\Projeto-ciencia-dados\\financial_impact.csv",
+    "caminho_completo": "C:\\Users\\vitho\\Projeto-ciencia-dados\\financial_impact.csv",
     "quantidade_linhas": 778,
     "quantidade_colunas": 19,
     "colunas": [
@@ -102,32 +102,32 @@
       "updated_at"
     ],
     "tipos": {
-      "incident_id": "str",
+      "incident_id": "object",
       "direct_loss_usd": "float64",
-      "direct_loss_method": "str",
+      "direct_loss_method": "object",
       "ransom_demanded_usd": "float64",
       "ransom_paid_usd": "float64",
-      "ransom_source": "str",
+      "ransom_source": "object",
       "recovery_cost_usd": "float64",
       "legal_fees_usd": "float64",
       "regulatory_fine_usd": "float64",
       "insurance_payout_usd": "float64",
       "total_loss_usd": "float64",
-      "total_loss_method": "str",
+      "total_loss_method": "object",
       "total_loss_lower_bound": "float64",
       "total_loss_upper_bound": "float64",
       "inflation_adjusted_usd": "float64",
-      "cpi_index_used": "str",
-      "notes": "str",
-      "created_at": "datetime64[us, UTC]",
-      "updated_at": "datetime64[us, UTC]"
+      "cpi_index_used": "object",
+      "notes": "object",
+      "created_at": "datetime64[ns, UTC]",
+      "updated_at": "datetime64[ns, UTC]"
     },
     "hash_sha256": "a406a2d44d169978de68b40a2672a3c8dc8718c00f147b6cc70459cbb1cc42ce",
-    "data_hora_carga": "2026-03-19T13:18:46.649691+00:00"
+    "data_hora_carga": "2026-04-14T17:43:28.659679+00:00"
   },
   "market_impact": {
     "arquivo_origem": "market_impact.csv",
-    "caminho_completo": "c:\\Users\\dti-\\Desktop\\Projeto-ciencia-dados\\market_impact.csv",
+    "caminho_completo": "C:\\Users\\vitho\\Projeto-ciencia-dados\\market_impact.csv",
     "quantidade_linhas": 358,
     "quantidade_colunas": 31,
     "colunas": [
@@ -164,8 +164,8 @@
       "updated_at"
     ],
     "tipos": {
-      "incident_id": "str",
-      "stock_ticker": "str",
+      "incident_id": "object",
+      "stock_ticker": "object",
       "price_7d_before": "float64",
       "price_disclosure_day": "float64",
       "price_1d_after": "float64",
@@ -173,7 +173,7 @@
       "price_30d_after": "float64",
       "volume_avg_30d_baseline": "int64",
       "volume_disclosure_day": "int64",
-      "sector_index": "str",
+      "sector_index": "object",
       "sector_return_same_period": "float64",
       "abnormal_return_1d": "float64",
       "abnormal_return_7d": "float64",
@@ -181,7 +181,7 @@
       "car_neg1_to_pos1": "float64",
       "car_0_to_7": "float64",
       "car_0_to_30": "float64",
-      "car_0_to_90": "str",
+      "car_0_to_90": "object",
       "t_statistic_1d": "float64",
       "p_value_1d": "float64",
       "t_statistic_30d": "float64",
@@ -192,11 +192,11 @@
       "pre_incident_volatility_30d": "float64",
       "post_incident_volatility_30d": "float64",
       "days_to_price_recovery": "float64",
-      "notes": "str",
-      "created_at": "datetime64[us, UTC]",
-      "updated_at": "datetime64[us, UTC]"
+      "notes": "object",
+      "created_at": "datetime64[ns, UTC]",
+      "updated_at": "datetime64[ns, UTC]"
     },
     "hash_sha256": "5ad063ac56365556429364b5b1f5cd62168488b9ebde4e48ee707df0cf5fa7b2",
-    "data_hora_carga": "2026-03-19T13:18:46.694091+00:00"
+    "data_hora_carga": "2026-04-14T17:43:28.679256+00:00"
   }
 }

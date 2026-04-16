@@ -17,23 +17,33 @@ Este projeto segue o padrão **Medallion Architecture**:
 ```
 Projeto-ciencia-dados/
 ├── data/
-│   ├── bronze/                          # Camada Bronze (CSV + metadados)
+│   ├── bronze/                          # Camada Bronze (CSV/Parquet + metadados)
 │   │   ├── incidents_master.csv
+│   │   ├── incidents_master.parquet
 │   │   ├── financial_impact.csv
+│   │   ├── financial_impact.parquet
 │   │   ├── market_impact.csv
+│   │   ├── market_impact.parquet
 │   │   └── metadata_ingestao.json
-│   ├── silver/                          # Camada Silver (CSV por domínio)
+│   ├── silver/                          # Camada Silver (CSV/Parquet por domínio)
 │   │   ├── incidents_silver.csv
+│   │   ├── incidents_silver.parquet
 │   │   ├── financial_silver.csv
+│   │   ├── financial_silver.parquet
 │   │   └── market_silver.csv
+│   │   └── market_silver.parquet
 │   └── gold/                            # Camada Gold (dataset ML)
 │       └── dataset_ml_final.csv
+│       └── dataset_ml_final.parquet
+├── reports/
+│   ├── data_quality_report.md
+│   ├── data_lineage.md
+│   └── anti_leakage_checklist.md
 ├── notebooks/
 │   └── main_pipeline.ipynb              # Notebook principal
 ├── financial_impact.csv                 # Dados brutos originais
 ├── incidents_master.csv
 ├── market_impact.csv
-├── build_notebook.py                    # Script de geração do notebook
 └── README.md                            # Este arquivo
 ```
 
@@ -71,7 +81,8 @@ pip install pandas pyarrow plotly matplotlib seaborn scikit-learn kaleido
 
 1. Abrir o notebook `notebooks/main_pipeline.ipynb` no VS Code ou Jupyter
 2. Executar todas as células em ordem (Run All)
-3. Os CSVs serão gerados em `data/bronze/`, `data/silver/` e `data/gold/`
+3. Os arquivos Bronze, Silver e Gold serão gerados em `data/bronze/`, `data/silver/` e `data/gold/` em CSV e Parquet
+4. Os relatórios e documentação do pipeline ficam em `reports/`
 
 ## Pipeline — Etapas
 
@@ -79,7 +90,7 @@ pip install pandas pyarrow plotly matplotlib seaborn scikit-learn kaleido
 - Leitura dos CSVs originais
 - Padronização de nomes de colunas (snake_case)
 - Conversão segura de tipos (bool, date, datetime) — se falhar, mantém como string
-- Salvamento em CSV
+- Salvamento em CSV e Parquet
 - Registro de metadados (hash SHA-256, contagem de linhas, timestamp)
 
 ### 2. Análise de Qualidade
@@ -93,6 +104,7 @@ pip install pandas pyarrow plotly matplotlib seaborn scikit-learn kaleido
 - Features derivadas: `days_to_discovery`, `days_to_disclosure`, `incident_year`, `incident_month`, `incident_dow`, `loss_ratio`
 - Remoção de colunas administrativas (`created_at`, `updated_at`, `notes`)
 - Tabelas mantidas **separadas** por domínio
+- Persistência da Silver em CSV e Parquet por domínio
 
 ### 4. Camada Gold
 - Merge via LEFT JOIN (incidents ← financial ← market)
@@ -119,13 +131,13 @@ pip install pandas pyarrow plotly matplotlib seaborn scikit-learn kaleido
 | # | Entregável | Localização |
 |---|---|---|
 | 1 | Notebook principal | `notebooks/main_pipeline.ipynb` |
-| 2 | CSVs Bronze | `data/bronze/*.csv` |
-| 3 | CSVs Silver | `data/silver/*.csv` |
-| 4 | CSV Gold | `data/gold/dataset_ml_final.csv` |
+| 2 | Bronze em Parquet | `data/bronze/*.parquet` |
+| 3 | Silver em Parquet | `data/silver/*.parquet` |
+| 4 | Dataset Gold | `data/gold/dataset_ml_final.parquet` |
 | 5 | Metadados de ingestão | `data/bronze/metadata_ingestao.json` |
-| 6 | Relatório de qualidade | Seção 4 do notebook |
-| 7 | Data lineage (Mermaid) | Seção 3 do notebook |
-| 8 | Checklist anti-leakage | Seção 6.4 do notebook |
+| 6 | Relatório de qualidade | `reports/data_quality_report.md` |
+| 7 | Data lineage (Mermaid) | `reports/data_lineage.md` |
+| 8 | Checklist anti-leakage | `reports/anti_leakage_checklist.md` |
 | 9 | EDA (6 gráficos) | Seção 7 do notebook |
 | 10 | README | Este arquivo |
 | 11 | **Extra**: Modelo ML | Seção 8 do notebook |
