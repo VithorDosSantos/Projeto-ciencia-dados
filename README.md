@@ -4,6 +4,85 @@
 
 Projeto de ciência de dados que implementa um pipeline de engenharia de dados seguindo a **Arquitetura Medallion** (Bronze → Silver → Gold) para um dataset de cibersegurança. O pipeline organiza, valida, limpa e prepara os dados para uso em modelos de Machine Learning.
 
+## 🎯 Objetivo do Projeto (CRÍTICO)
+
+**Problema que resolve:** transformar dados brutos de incidentes de cibersegurança em um dataset confiável para análise e modelagem, reduzindo inconsistências, vazamentos de informação e ruído.
+
+**Aplicação real:** apoiar times de risco, compliance e resposta a incidentes a priorizar ações com base na severidade estimada, mesmo antes da divulgação pública completa.
+
+## 🗂️ Contexto do Dataset
+
+- **Tipo:** dados tabulares de incidentes com impactos financeiros e de mercado.
+- **Origem:** arquivos CSV fornecidos no repositório (a documentação não indica se é um dataset real ou sintético).
+- **Uso:** estudo e prototipação de pipeline e modelos de classificação de severidade.
+- **Chave principal:** `incident_id` (presente nas 3 tabelas).
+
+## 🧰 Stack Tecnológica (IMPORTANTE)
+
+- **Python 3.10+**
+- **Pandas** (transformações e validações)
+- **NumPy** (operações vetorizadas)
+- **Scikit-learn** (modelos e métricas)
+- **PyArrow** (Parquet)
+- **Plotly + Matplotlib + Seaborn** (visualizações e EDA)
+- **Jupyter/VS Code** (execução do pipeline)
+
+## ⭐ Diferenciais do Projeto (ALTO IMPACTO)
+
+- **Arquitetura Medallion** aplicada end-to-end (Bronze → Silver → Gold)
+- **Data Quality Rules** com regras automáticas e relatório dedicado
+- **Anti-data leakage** com checklist explícito de colunas removidas
+- **Data lineage** documentada em Mermaid
+- **Artefatos de ML** persistidos com metadados de modelo
+
+## 📊 Resultados do Modelo (OBRIGATÓRIO)
+
+- **Melhor modelo:** Gradient Boosting (definido automaticamente na comparação)
+- **Accuracy (teste):** 0.9295
+- **F1 (macro / weighted):** gerado no notebook na seção 8 (classification report)
+- **Interpretação simples:** o modelo atinge ~93% de acurácia no conjunto de teste; para avaliação mais robusta, utilize F1 macro/weighted e matriz de confusão no notebook.
+
+> Fonte: [data/model/model_metadata.json](data/model/model_metadata.json)
+
+## 🧠 Insights ou Conclusões (MUITO IMPORTANTE)
+
+- **Padrões encontrados (EDA):** distribuição por vetor de ataque, evolução temporal dos incidentes, impacto financeiro por indústria e correlações entre variáveis (ver seção 7 do notebook).
+- **Impacto dos dados:** qualidade e consistência dos registros melhoram a estabilidade do modelo e reduzem vieses de decisão.
+- **O que o modelo revela:** sinais financeiros e temporais contribuem para a previsão de severidade (ver gráfico de feature importance na seção 8).
+
+## 📈 Evidências Visuais (DIFERENCIAL FORTE)
+
+- **Data lineage (Mermaid):** [reports/data_lineage.md](reports/data_lineage.md)
+- **EDA (HTML interativo):** [notebooks/iframe_figures/figure_22.html](notebooks/iframe_figures/figure_22.html), [notebooks/iframe_figures/figure_27.html](notebooks/iframe_figures/figure_27.html), [notebooks/iframe_figures/figure_33.html](notebooks/iframe_figures/figure_33.html)
+- **Notebook principal (pipeline completo):** [notebooks/main_pipeline.ipynb](notebooks/main_pipeline.ipynb)
+
+## ⚠️ Limitações do Projeto (NÍVEL AVANÇADO)
+
+- **Tamanho do dataset:** base relativamente pequena (centenas de registros), o que limita generalização.
+- **Cobertura de mercado:** `market_impact` existe apenas para empresas públicas.
+- **Valores ausentes:** há percentuais relevantes de nulos em algumas tabelas (ver relatório de qualidade).
+- **Modelo baseline:** sem tuning extensivo e sem validação externa.
+
+## 🚀 Possíveis Melhorias Futuras
+
+- **Deploy do modelo** via API (FastAPI/Flask) com versionamento de artefatos.
+- **Pipeline automatizado** (Airflow/Prefect) com agendamento e monitoramento.
+- **Cloud** (storage e compute) para ingestão escalável.
+- **Validação contínua** com drift e métricas de produção.
+
+## 📌 Exemplo de Saída (BÔNUS)
+
+Trecho do dataset Gold (`dataset_ml_final.csv`):
+
+```csv
+incident_id,company_revenue_usd,country_hq,industry_primary,industry_secondary,employee_count,is_public_company,attack_vector_primary,attack_vector_secondary,attribution_confidence,data_compromised_records,data_type,systems_affected,downtime_hours,data_source_type,confidence_tier,incident_year,incident_month,incident_dow,days_to_discovery,days_to_disclosure,direct_loss_usd,direct_loss_method,ransom_demanded_usd,ransom_paid_usd,ransom_source,recovery_cost_usd,legal_fees_usd,regulatory_fine_usd,insurance_payout_usd,price_7d_before,price_disclosure_day,volume_avg_30d_baseline,sector_index,sector_return_same_period,earnings_announcement_within_7d,market_cap_at_disclosure,pre_incident_volatility_30d,severity_label
+2021-0508-001,1343769307.79,US,52,54,3940,True,ransomware,,suspected,26888.0,mixed,"payment_systems,HR_systems",16.52,sec_filing,1,2021,5,5,4,39,12600000.0,disclosed,13802654.69,,,9455354.49,2496545.93,90695.25,6756288.97,,,,,,,,,high
+2025-1211-001,63670593.18,GB,51,,250,False,phishing,,probable,41426.0,mixed,"file_servers,backup_systems,HR_systems,ERP",,verified_media,3,2025,12,3,64,3,7640471.18,disclosed,,,,5857150.47,1809188.41,,2691027.33,,,,,,,,,medium
+2023-0115-001,24806189094.88,US,51,,71369,True,trojan,ddos,,,,HR_systems,,verified_media,4,2023,1,6,184,47,34881599.59,calculated,,,,26404111.95,10330703.43,,31759649.99,262.07,251.95,19782288.0,S&P 500 Information Technology,18.777,True,118198823773.06,27.705,critical
+2021-0315-001,139825903.53,US,44-45,,912,True,phishing,,,1107796.0,mixed,"HR_systems,CRM,VPN",,company_pr,2,2021,3,0,19,91,4682151.47,disclosed,,,,3642946.48,1029035.85,,1772460.33,9.37,9.09,458826.0,S&P 500 Consumer Discretionary,2.086,False,648911379.54,17.116,medium
+2021-1204-001,691697737.03,US,51,,1662,True,data_breach,,,621233.0,mixed,"SCADA,VPN",,company_pr,2,2021,12,5,7,40,2684607.92,estimated,,,,2574871.33,206822.23,,,14.6,13.36,230932.0,S&P 500 Information Technology,-14.242,False,4735163815.54,38.209,low
+```
+
 ## Arquitetura de Dados
 
 Este projeto segue o padrão **Medallion Architecture**:
